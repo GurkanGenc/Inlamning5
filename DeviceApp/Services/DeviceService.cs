@@ -5,25 +5,15 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeviceApp  // This is an IoT device
+namespace DeviceApp.Services
 {
-    class Program
+    public static class DeviceService
     {
         private static DeviceClient deviceClient = DeviceClient.CreateFromConnectionString("HostName=Inlamning3-iothub.azure-devices.net;DeviceId=ConsoleApp;SharedAccessKey=ptX988yL+vj8vS/Z4KQzewzdmmF4IJGyD2SLXCjCtgY=", TransportType.Mqtt);
-        private static int telemetryInterval = 5; // It is second.
+        private static int telemetryInterval = 5; // It is second as unit.
         private static Random rnd = new Random();
 
-        static void Main(string[] args)
-        {
-            deviceClient.SetMethodHandlerAsync("SetTelemetryInterval", SetTelemetryInterval, null).Wait();
-            //SendMessageAsync().GetAwaiter();
-
-            Console.ReadKey();
-        }
-
-        // This function returns a MethodResponse and make that Task
-        // Since it is Task it does not need to be Async!
-        private static Task<MethodResponse> SetTelemetryInterval(MethodRequest request, object userContext)
+        public static Task<MethodResponse> SetTelemetryInterval(MethodRequest request, object userContext)
         {
             var payload = Encoding.UTF8.GetString(request.Data).Replace("\"", "");
 
@@ -45,7 +35,7 @@ namespace DeviceApp  // This is an IoT device
             }
         }
 
-        //private static async Task SendMessageAsync()
+        //public static async Task SendMessageAsync()
         //{
         //    while (true)
         //    {
@@ -60,16 +50,12 @@ namespace DeviceApp  // This is an IoT device
 
         //        var json = JsonConvert.SerializeObject(data);
         //        var payload = new Message(Encoding.UTF8.GetBytes(json));
-        //        // "Properties" here just reads string. P.g.a. "true and "false" values are strings.
-        //        payload.Properties.Add("temperatureAlert", (temp > 30) ? "true" : "false"); // condition ? true value : false value
 
         //        await deviceClient.SendEventAsync(payload);
         //        Console.WriteLine($"Message sent: {json}");
 
         //        await Task.Delay(telemetryInterval * 1000);
         //    }
-            
-            
         //}
     }
 }
