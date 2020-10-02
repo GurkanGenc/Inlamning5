@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace ServiceApp
+namespace ServiceApp // This one changes the telemetry interval
 {
     class Program
     {
@@ -11,7 +11,7 @@ namespace ServiceApp
         static void Main(string[] args)
         {
             Task.Delay(5000).Wait(); // We don't need this. It is just to see what's going on.
-
+            Console.WriteLine("Updating interval to 10 seconds.");
             InvokeMethod("ConsoleApp", "SetTelemetryInterval", "10").GetAwaiter();
 
             Console.ReadKey();

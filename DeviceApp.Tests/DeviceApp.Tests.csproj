@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DeviceApp\DeviceApp.csproj" />
+    <ProjectReference Include="..\ServiceApp\ServiceApp.csproj" />
   </ItemGroup>
 
 </Project>
